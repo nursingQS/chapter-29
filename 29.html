@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric Nursing Flashcards - Chapter 29: The Child with Cancer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff0f0 0%, #ffeaea 100%);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            height: 96vh;
+            background: #fffafa;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(229, 57, 53, 0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 3px solid #d32f2f;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #c62828, #d32f2f);
+            color: white;
+            padding: 12px 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path d="M50,30 L60,45 L75,40 L80,55 L65,65 L50,75 L35,65 L20,55 L25,40 L40,45 Z" fill="white"/><circle cx="50" cy="50" r="20" fill="white"/><path d="M45,40 L55,40 L55,50 L45,50 Z" fill="white"/><polygon points="50,30 60,40 70,35 75,45 65,50 55,45" fill="white"/></svg>');
+            background-size: 80px 80px;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+            position: relative;
+            color: #ffebee;
+            line-height: 1.2;
+        }
+        
+        .header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+            color: #ffcdd2;
+            margin-bottom: 8px;
+        }
+        
+        .progress {
+            background: #b71c1c;
+            height: 6px;
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #ef5350, #d32f2f);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .section-nav {
+            display: flex;
+            gap: 6px;
+            padding: 8px 10px;
+            background: linear-gradient(135deg, #b71c1c, #c62828);
+            border-bottom: 1px solid #ef5350;
+            flex-shrink: 0;
+            overflow-x: auto;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-btn {
+            padding: 5px 10px;
+            border: 2px solid #ef5350;
+            background: rgba(255, 255, 255, 0.95);
+            color: #b71c1c;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .section-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(239, 83, 80, 0.4);
+        }
+        
+        .section-btn.active {
+            background: linear-gradient(135deg, #ef5350, #d32f2f);
+            color: white;
+            border-color: #c62828;
+            box-shadow: 0 6px 12px rgba(239, 83, 80, 0.5);
+        }
+        
+        .flashcard {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fffafa;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .question-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 6px solid #ef5350;
+            box-shadow: 0 4px 8px rgba(211, 47, 47, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .question-icon {
+            background: linear-gradient(135deg, #c62828, #ef5350);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(198, 40, 40, 0.4);
+        }
+        
+        .question {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #b71c1c;
+            flex-grow: 1;
+            font-weight: 500;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        
+        .multiple-select-indicator {
+            background: #1976d2;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 6px;
+            white-space: nowrap;
+            box-shadow: 0 3px 6px rgba(25, 118, 210, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 8px;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .option {
+            padding: 8px 10px;
+            border: 2px solid #ffcdd2;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            line-height: 1.3;
+            flex-shrink: 0;
+            min-height: 45px;
+        }
+        
+        .option:hover {
+            background: #ffebee;
+            border-color: #ef5350;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(239, 83, 80, 0.2);
+        }
+        
+        .option-letter {
+            background: #ffcdd2;
+            color: #b71c1c;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            border: 2px solid #ef5350;
+        }
+        
+        /* CORRECT - ALWAYS GREEN */
+        .option.correct {
+            background: #c8e6c9;
+            border-color: #388e3c;
+            color: #1b5e20;
+        }
+        
+        .option.correct .option-letter {
+            background: #388e3c;
+            color: white;
+            border-color: #388e3c;
+        }
+        
+        /* INCORRECT - ALWAYS RED */
+        .option.incorrect {
+            background: #ffcdd2;
+            border-color: #d32f2f;
+            color: #b71c1c;
+        }
+        
+        .option.incorrect .option-letter {
+            background: #d32f2f;
+            color: white;
+            border-color: #d32f2f;
+        }
+        
+        .option.selected {
+            background: #ffebee;
+            border-color: #ef5350;
+            color: #b71c1c;
+        }
+        
+        .option.selected .option-letter {
+            background: #ef5350;
+            color: white;
+            border-color: #d32f2f;
+        }
+        
+        .feedback {
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .feedback.correct {
+            background: #c8e6c9;
+            border: 3px solid #388e3c;
+            color: #1b5e20;
+            display: flex;
+        }
+        
+        .feedback.incorrect {
+            background: #ffcdd2;
+            border: 3px solid #d32f2f;
+            color: #b71c1c;
+            display: flex;
+        }
+        
+        .feedback-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #ffcdd2;
+            border-top: 2px solid #ef5350;
+            flex-shrink: 0;
+            gap: 8px;
+        }
+        
+        .counter {
+            font-weight: bold;
+            color: #b71c1c;
+            font-size: 0.9rem;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #d32f2f;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #c62828, #ef5350);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(198, 40, 40, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #d32f2f, #c62828);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(211, 47, 47, 0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #d32f2f, #c62828);
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(211, 47, 47, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(25, 118, 210, 0.4);
+        }
+        
+        .rationale {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border: 3px solid #d32f2f;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 8px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+            flex-shrink: 0;
+            overflow: hidden;
+            max-height: 120px;
+        }
+        
+        .rationale.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .rationale h4 {
+            color: #c62828;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .rationale p {
+            color: #b71c1c;
+            line-height: 1.4;
+            font-size: 0.8rem;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stats {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 4px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .cancel-selection {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            color: white;
+            margin: 0 auto 8px auto;
+            display: none;
+            box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .cancel-selection:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(25, 118, 210, 0.4);
+        }
+        
+        .cancel-selection.show {
+            display: flex;
+        }
+        
+        .multiple-select-instructions {
+            text-align: center;
+            color: #1976d2;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            background: #ffebee;
+            padding: 6px;
+            border-radius: 8px;
+            border: 2px solid #ffcdd2;
+            flex-shrink: 0;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        }
+        
+        /* Remove all scrollbars */
+        .options,
+        .rationale,
+        .container,
+        .flashcard,
+        body {
+            overflow: hidden !important;
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+        
+        .options::-webkit-scrollbar,
+        .rationale::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                height: 98vh;
+            }
+            
+            .section-btn {
+                min-width: 100px;
+                font-size: 0.7rem;
+                padding: 4px 8px;
+            }
+            
+            .header {
+                padding: 10px 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .navigation {
+                padding: 8px 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px;
+            }
+            
+            .counter {
+                order: -1;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 4px;
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .question {
+                font-size: 0.85rem;
+            }
+            
+            .option {
+                font-size: 0.8rem;
+                padding: 6px 8px;
+                min-height: 40px;
+            }
+            
+            .question-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .option-letter {
+                width: 22px;
+                height: 22px;
+                font-size: 0.75rem;
+            }
+        }
+        
+        @media (max-height: 700px) {
+            .container {
+                height: 99vh;
+            }
+            
+            .header {
+                padding: 8px 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            
+            .header .subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .question-container {
+                padding: 10px;
+                margin-bottom: 6px;
+            }
+            
+            .question {
+                font-size: 0.8rem;
+                line-height: 1.3;
+            }
+            
+            .option {
+                padding: 6px 8px;
+                min-height: 35px;
+                font-size: 0.75rem;
+            }
+            
+            .navigation {
+                padding: 6px 8px;
+            }
+            
+            .rationale {
+                max-height: 80px;
+                padding: 8px;
+            }
+            
+            .feedback {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+            
+            .option-letter {
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+            }
+            
+            .stats {
+                display: none;
+            }
+        }
+        
+        @media (max-height: 600px) {
+            .question-container {
+                padding: 8px;
+            }
+            
+            .question-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+            
+            .option {
+                min-height: 30px;
+                padding: 4px 6px;
+                font-size: 0.7rem;
+            }
+            
+            .option-letter {
+                width: 18px;
+                height: 18px;
+                font-size: 0.65rem;
+            }
+            
+            .btn {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .rationale {
+                max-height: 60px;
+                padding: 6px;
+            }
+            
+            .rationale p {
+                font-size: 0.7rem;
+                line-height: 1.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Chapter 29: The Child with Cancer</h1>
+            <div class="subtitle">Oncology & Hematology Theme - Red & White Colors (Cancer Focus)</div>
+            <div class="stats">
+                <div class="stat">📚 47 Questions</div>
+                <div class="stat">🎯 Immediate Feedback</div>
+                <div class="stat">💊 Chemotherapy</div>
+                <div class="stat">🩸 Leukemia Focus</div>
+            </div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="section-nav">
+            <button class="section-btn active" onclick="setSection('multiple-choice')">Multiple Choice (47)</button>
+            <button class="section-btn" onclick="setSection('multiple-response')">Multiple Response (7)</button>
+            <button class="section-btn" onclick="setSection('all')">All Mixed (54)</button>
+        </div>
+        
+        <div class="flashcard">
+            <div class="question-container">
+                <div class="question-icon" id="questionNumber">1</div>
+                <div class="question" id="question"></div>
+                <div class="multiple-select-indicator" id="multipleSelectIndicator" style="display: none;">Multiple Answers</div>
+            </div>
+            
+            <div class="multiple-select-instructions" id="multipleSelectInstructions" style="display: none;">
+                💡 Select ALL correct answers
+            </div>
+            
+            <div class="options" id="options"></div>
+            
+            <button class="btn cancel-selection" id="cancelBtn" onclick="cancelSelection()">
+                🔄 Reset
+            </button>
+            
+            <div class="feedback" id="feedback">
+                <div class="feedback-icon" id="feedbackIcon"></div>
+                <div id="feedbackText"></div>
+            </div>
+            <div class="rationale" id="rationale">
+                <h4>💡 Rationale:</h4>
+                <p id="rationaleText"></p>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <button class="btn btn-secondary" id="prevBtn" onclick="previousCard()">
+                ⬅️ Prev
+            </button>
+            <div class="counter" id="counter">1/47</div>
+            <button class="btn btn-warning" id="submitBtn" onclick="submitAnswer()" style="display: none;">
+                ✅ Submit
+            </button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextCard()">
+                Next ➡️
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Chapter 29 Data - The Child with Cancer
+        const sections = {
+            'multiple-choice': [
+                {
+                    question: "What childhood cancer may demonstrate patterns of inheritance that suggest a familial basis?",
+                    options: [
+                        "Leukemia",
+                        "Retinoblastoma",
+                        "Rhabdomyosarcoma",
+                        "Osteogenic sarcoma"
+                    ],
+                    correct: 1,
+                    rationale: "Retinoblastoma is an example of a pediatric cancer that demonstrates inheritance. The absence of the retinoblastoma gene allows for abnormal cell growth and the development of retinoblastoma. Chromosome abnormalities are present in many malignancies. They do not indicate a familial pattern of inheritance. The Philadelphia chromosome is observed in almost all individuals with chronic myelogenous leukemia. There is no evidence of a familial pattern of inheritance for rhabdomyosarcoma or osteogenic sarcoma cancers."
+                },
+                {
+                    question: "As part of the diagnostic evaluation of a child with cancer, biopsies are important for staging. What statement explains what staging means?",
+                    options: [
+                        "Extent of the disease at the time of diagnosis",
+                        "Rate normal cells are being replaced by cancer cells",
+                        "Biologic characteristics of the tumor or lymph nodes",
+                        "Abnormal, unrestricted growth of cancer cells producing organ damage"
+                    ],
+                    correct: 0,
+                    rationale: "Staging is a description of the extent of the disease at the time of diagnosis. Staging criteria exist for most tumors. The stage usually relates directly to the prognosis; the higher the stage, the poorer the prognosis. The rate that normal cells are being replaced by cancer cells is not a definition of staging. Classification of the tumor refers to the biologic characteristics of the tumor or lymph nodes. Abnormal, unrestricted growth of cancer cells producing organ damage describes how cancer cells grow and can cause damage to an organ."
+                },
+                {
+                    question: "What statement related to clinical trials developed for pediatric cancers is most accurate?",
+                    options: [
+                        "Are accessible only in major pediatric centers",
+                        "Do not require consent for standard therapy",
+                        "Provide the best available therapy compared with an expected improvement",
+                        "Are standardized to provide the same treatment to all children with the disease"
+                    ],
+                    correct: 2,
+                    rationale: "Most clinical trials have a control group in which the patients receive the best available therapy currently known. The experimental group(s) receives treatment that is thought to be even better. The protocol outlines the therapy plan. Protocols are developed for many pediatric cancers. They can be accessed by pediatric oncologists throughout the United States. Consent is always required in treatment of children, especially for research protocols. The protocol is designed to optimize therapy for children based on disease type and stage."
+                },
+                {
+                    question: "Chemotherapeutic agents are classified according to what feature?",
+                    options: [
+                        "Side effects",
+                        "Effectiveness",
+                        "Mechanism of action",
+                        "Route of administration"
+                    ],
+                    correct: 2,
+                    rationale: "Chemotherapeutic agents are classified according to mechanism of action. For example, antimetabolites resemble essential metabolic elements needed for growth but are different enough to block further deoxyribonucleic acid (DNA) synthesis. Although the side effect profiles may be similar for drugs within a classification, they are not the basis for classification. Most chemotherapeutic regimens contain combinations of drugs. The effectiveness of any one drug is relative to the cancer type, combination therapy, and protocol for administration. The route of administration is determined by the pharmacodynamics and pharmacokinetics of each drug."
+                },
+                {
+                    question: "What type of chemotherapeutic agent alters the function of cells by replacing a hydrogen atom of a molecule?",
+                    options: [
+                        "Plant alkaloids",
+                        "Antimetabolites",
+                        "Alkylating agents",
+                        "Antitumor antibiotics"
+                    ],
+                    correct: 2,
+                    rationale: "Alkylating agents replace a hydrogen atom with an alkyl group. The irreversible combination of alkyl groups with nucleotide chains, particularly deoxyribonucleic acid (DNA), causes unbalanced growth of unaffected cell constituents so that the cell eventually dies. Plant alkaloids arrest the cell in metaphase by binding to proteins needed for spindle formation. Antimetabolites resemble essential metabolic elements needed for growth but are different enough to block further DNA synthesis. Antitumor antibiotics are natural substances that interfere with cell division by reacting with DNA in such a way as to prevent further replication of DNA and transcription of ribonucleic acid (RNA)."
+                },
+                {
+                    question: "What side effect commonly occurs with corticosteroid (prednisone) therapy?",
+                    options: [
+                        "Alopecia",
+                        "Anorexia",
+                        "Nausea and vomiting",
+                        "Susceptibility to infection"
+                    ],
+                    correct: 3,
+                    rationale: "Corticosteroids have immunosuppressive effects. Children who are taking prednisone are susceptible to infections. Hair loss is not a side effect of corticosteroid therapy. Children taking corticosteroids have increased appetites. Gastric irritation, not nausea and vomiting, is a potential side effect. The medicine should be given with food."
+                },
+                {
+                    question: "What chemotherapeutic agent is classified as an antitumor antibiotic?",
+                    options: [
+                        "Cisplatin (Platinol AQ)",
+                        "Vincristine (Oncovin)",
+                        "Methotrexate (Texall)",
+                        "Daunorubicin (Cerubidine)"
+                    ],
+                    correct: 3,
+                    rationale: "Daunorubicin is an antitumor antibiotic. Cisplatin is classified as an alkylating agent. Vincristine is a plant alkaloid. Methotrexate is an antimetabolite."
+                },
+                {
+                    question: "The nurse is administering an intravenous chemotherapeutic agent to a child with leukemia. The child suddenly begins to wheeze and have severe urticaria. What nursing action is most appropriate to initiate?",
+                    options: [
+                        "Recheck the rate of drug infusion.",
+                        "Stop the drug infusion immediately.",
+                        "Observe the child closely for next 10 minutes.",
+                        "Explain to the child that this is an expected side effect."
+                    ],
+                    correct: 1,
+                    rationale: "When an allergic reaction is suspected, the drug is immediately discontinued. Any drug in the line should be withdrawn, and a normal saline infusion begun to keep the line open. The intravenous infusion is stopped to minimize the amount of drug that infuses. The infusion rate can be confirmed at a later time. Observation of the child for 10 minutes is essential, but it is done after the infusion is stopped. These signs are indicative of an allergic reaction, not an expected response."
+                },
+                {
+                    question: "Total-body irradiation is indicated for what reason?",
+                    options: [
+                        "Palliative care",
+                        "Lymphoma therapy",
+                        "Definitive therapy for leukemia",
+                        "Preparation for bone marrow transplant"
+                    ],
+                    correct: 3,
+                    rationale: "Total-body irradiation is used as part of the destruction of the childs immune system necessary for a bone marrow transplant. The child is at great risk for complications because there is no supportive therapy until engraftment of the donor marrow takes place. Irradiation for palliative care is done selectively. The area that is causing pain or potential obstruction is irradiated. Lymphoma and leukemia are treated through a combination of modalities. Total-body irradiation is not indicated."
+                },
+                {
+                    question: "The parents of a child with cancer tell the nurse that a bone marrow transplant (BMT) may be necessary. What information should the nurse recognize as important when discussing this with the family?",
+                    options: [
+                        "BMT should be done at the time of diagnosis.",
+                        "Parents and siblings of the child have a 25% chance of being a suitable donor.",
+                        "If BMT fails, chemotherapy or radiotherapy will need to be continued.",
+                        "Finding a suitable donor involves matching antigens from the human leukocyte antigen (HLA) system."
+                    ],
+                    correct: 3,
+                    rationale: "The most successful BMTs come from suitable HLA-matched donors. The timing of a BMT depends on the disease process involved. It usually follows intensive high-dose chemotherapy or radiotherapy. Usually, parents only share approximately 50% of the genetic material with their children. A one in four chance exists that two siblings will have two identical haplotypes and will be identically matched at the HLA loci. The decision to continue chemotherapy or radiotherapy if BMT fails is not appropriate to discuss with the parents when planning the BMT. That decision will be made later."
+                },
+                {
+                    question: "An adolescent will receive a bone marrow transplant (BMT). The nurse should explain that the bone marrow will be administered by which method?",
+                    options: [
+                        "Bone grafting",
+                        "Intravenous infusion",
+                        "Bone marrow injection",
+                        "Intraabdominal infusion"
+                    ],
+                    correct: 1,
+                    rationale: "Bone marrow from a donor is infused intravenously, and the transfused stem cells migrate to the recipients marrow and repopulate it."
+                },
+                {
+                    question: "After chemotherapy is begun for a child with acute leukemia, prophylaxis to prevent acute tumor lysis syndrome includes which therapeutic intervention?",
+                    options: [
+                        "Hydration",
+                        "Oxygenation",
+                        "Corticosteroids",
+                        "Pain management"
+                    ],
+                    correct: 0,
+                    rationale: "Acute tumor lysis syndrome results from the release of intracellular metabolites during the initial treatment of leukemia. Hyperuricemia, hypocalcemia, hyperphosphatemia, and hyperkalemia can result. Hydration is used to reduce the metabolic consequences of the tumor lysis. Oxygenation is not helpful in preventing acute tumor lysis syndrome. Allopurinol, not corticosteroids, is indicated for pharmacologic management. Pain management may be indicated for supportive therapy of the child, but it does not prevent acute tumor lysis syndrome."
+                },
+                {
+                    question: "Nursing care of the child with myelosuppression from leukemia or chemotherapeutic agents should include which therapeutic intervention?",
+                    options: [
+                        "Restrict oral fluids.",
+                        "Institute strict isolation.",
+                        "Use good hand-washing technique.",
+                        "Give immunizations appropriate for age."
+                    ],
+                    correct: 2,
+                    rationale: "Good hand washing minimizes the exposure to infectious organisms and decreases the chance of infection spread. Oral fluids are encouraged if the child is able to drink. If possible, the intravenous route is not used because of the increased risk of infection from parenteral fluid administration. Strict isolation is not indicated. When the child is immunocompromised, the vaccines are not effective. If necessary, the appropriate immunoglobulin is administered."
+                },
+                {
+                    question: "In teaching parents how to minimize or prevent bleeding episodes when the child is myelosuppressed, the nurse includes what information?",
+                    options: [
+                        "Meticulous mouth care is essential to avoid mucositis.",
+                        "Rectal temperatures are necessary to monitor for infection.",
+                        "Intramuscular injections are preferred to intravenous ones.",
+                        "Platelet transfusions are given to maintain a count greater than 50,000/mm³."
+                    ],
+                    correct: 0,
+                    rationale: "The decrease in blood platelets secondary to the myelosuppression of chemotherapy can cause an increase in bleeding. The child and family are taught how to perform good oral hygiene to minimize gingival bleeding and mucositis. Rectal temperatures are avoided to minimize the risk of ulceration. Hygiene is also emphasized. Intramuscular injections are avoided because of the risk of bleeding into the muscle and of infection. Platelet transfusions are usually not given unless there is active bleeding or the platelet count is less than 10,000/mm³. The use of platelets when not necessary can contribute to antibody formation and increased destruction of platelets when transfused."
+                },
+                {
+                    question: "A school-age child with leukemia experienced severe nausea and vomiting when receiving chemotherapy for the first time. What is the most appropriate nursing action to prevent or minimize these reactions with subsequent treatments?",
+                    options: [
+                        "Administer the chemotherapy between meals.",
+                        "Give an antiemetic before chemotherapy begins.",
+                        "Have the child bring favorite foods for snacks.",
+                        "Keep the child NPO (nothing by mouth) until nausea and vomiting subside."
+                    ],
+                    correct: 1,
+                    rationale: "The most beneficial regimen to minimize nausea and vomiting associated with chemotherapy is to administer a 5-hydroxytryptamine-3 receptor antagonist (e.g., ondansetron) before the chemotherapy is begun. The goal is to prevent anticipatory signs and symptoms. The child will experience nausea with chemotherapy whether or not food is present in the stomach. Because some children develop aversions to foods eaten during chemotherapy, refraining from offering favorite foods is advised. Keeping the child NPO until nausea and vomiting subside will help with this episode, but the child will have discomfort and be at risk for dehydration."
+                },
+                {
+                    question: "A young child with leukemia has anorexia and severe stomatitis. What approach should the nurse suggest that the parents try?",
+                    options: [
+                        "Relax any eating pressures.",
+                        "Firmly insist that the child eat normally.",
+                        "Serve foods that are either hot or cold.",
+                        "Provide only liquids because chewing is painful."
+                    ],
+                    correct: 0,
+                    rationale: "A multifaceted approach is necessary for children with severe stomatitis and anorexia. First, the parents should relax eating pressures. The nurse should suggest that the parents try soft, bland foods; normal saline or bicarbonate mouthwashes; and local anesthetics. Insisting that the child eat normally is not suggested. For some children, not eating may be a way to maintain some control. This can set the child and caregiver in opposition to each other. Hot and cold foods can be painful on ulcerated mucosal membranes. Substitution of high-calorie foods that the child likes and can eat should be used."
+                },
+                {
+                    question: "The nurse is preparing a child for possible alopecia from chemotherapy. What information should the nurse include?",
+                    options: [
+                        "Wearing hats or scarves is preferable to a wig.",
+                        "Expose head to sunlight to stimulate hair regrowth.",
+                        "Hair may have a slightly different color or texture when it regrows.",
+                        "Regrowth of hair usually begins 12 months after chemotherapy ends."
+                    ],
+                    correct: 2,
+                    rationale: "Alopecia is a side effect of certain chemotherapeutic agents and cranial irradiation. When the hair regrows, it may be of a different color or texture. Children should choose the head covering they prefer. A wig should be selected similar to the childs own hairstyle and color before the hair loss. The head should be protected from sunlight to avoid sunburn. The hair usually grows back within 3 to 6 months after the cessation of treatment."
+                },
+                {
+                    question: "What pain management approach is most effective for a child who is having a bone marrow test?",
+                    options: [
+                        "Relaxation techniques",
+                        "Administration of an opioid",
+                        "EMLA cream applied over site",
+                        "Conscious or unconscious sedation"
+                    ],
+                    correct: 3,
+                    rationale: "Children need explanations before each procedure that is being done to them. Effective pharmacologic and nonpharmacologic measures should be used to minimize pain associated with procedures. For bone marrow aspiration, conscious or unconscious sedation should be used. Relaxation, opioids, and EMLA can be used to augment the sedation."
+                },
+                {
+                    question: "The nurse is caring for a child receiving chemotherapy for leukemia. The childs granulocyte count is 600/mm³ and platelet count is 45,000/mm³. What oral care should the nurse recommend for this child?",
+                    options: [
+                        "Rinsing mouth with water",
+                        "Daily toothbrushing and flossing",
+                        "Lemon glycerin swabs for cleansing",
+                        "Wiping teeth with moistened gauze or Toothettes"
+                    ],
+                    correct: 1,
+                    rationale: "Oral care is essential for children receiving chemotherapy to prevent infections and other complications. When the childs granulocyte count is above 500/mm³ and platelet count is above 40,000/mm³, daily brushing and flossing are recommended. Rinsing the mouth with water is not effective for oral hygiene. Lemon glycerin swabs are avoided because they have a drying effect on the mucous membranes, and the lemon may irritate eroded tissue and decay the childs teeth. Wiping teeth with moistened gauze or Toothettes is recommended when the childs granulocyte count is below 500/mm³ and platelet count is below 40,000/mm³."
+                },
+                {
+                    question: "What immunization should not be given to a child receiving chemotherapy for cancer?",
+                    options: [
+                        "Tetanus vaccine",
+                        "Inactivated poliovirus vaccine",
+                        "Diphtheria, pertussis, tetanus (DPT)",
+                        "Measles, mumps, rubella (MMR)"
+                    ],
+                    correct: 3,
+                    rationale: "The vaccine used for MMR is a live virus and can cause serious disease in immunocompromised children. The tetanus vaccine, inactivated poliovirus vaccine, and DPT are not live vaccines and can be given to immunosuppressed children. The immune response is likely to be suboptimum, so delaying vaccination is usually recommended."
+                },
+                {
+                    question: "What description identifies the pathophysiology of leukemia?",
+                    options: [
+                        "Increased blood viscosity",
+                        "Abnormal stimulation of the first stage of coagulation process",
+                        "Unrestricted proliferation of immature white blood cells (WBCs)",
+                        "Thrombocytopenia from an excessive destruction of platelets"
+                    ],
+                    correct: 2,
+                    rationale: "Leukemia is a group of malignant disorders of the bone marrow and lymphatic system. It is defined as an unrestricted proliferation of immature WBCs in the blood-forming tissues of the body. Increased blood viscosity may result secondary to the increased number of WBCs. The coagulation process is unaffected by leukemia. Thrombocytopenia may occur secondary to the overproduction of WBCs in the bone marrow."
+                },
+                {
+                    question: "A child with leukemia is receiving intrathecal chemotherapy to prevent which condition?",
+                    options: [
+                        "Infection",
+                        "Brain tumor",
+                        "Central nervous system (CNS) disease",
+                        "Drug side effects"
+                    ],
+                    correct: 2,
+                    rationale: "Children with leukemia are at risk for invasion of the CNS with leukemic cells. CNS prophylactic therapy is indicated. Intrathecal chemotherapy does not prevent infection or drug side effects. A brain tumor in a child with leukemia would be a second tumor, and additional appropriate therapy would be indicated."
+                },
+                {
+                    question: "A parent tells the nurse that 80% of children with the same type of leukemia as his sons have a 5-year survival. He believes that because another child on the same protocol as his son has just died, his son now has a better chance of success. What is the best response by the nurse?",
+                    options: [
+                        "It is sad for the other family but good news for your child.",
+                        "Each child has an 80% likelihood of 5-year survival.",
+                        "The data suggest that 20% of the children in the clinic will die. There are still many hurdles for your son.",
+                        "You should avoid the grieving family because you will be benefiting from their loss."
+                    ],
+                    correct: 1,
+                    rationale: "This is a common misconception for parents. The success data are based on numerous factors, including the effectiveness of the protocol and the childs response. These are aggregate data that apply to each child and do not depend on the success or failure in other children. The failure of one child in a protocol does not improve the success rate for other children. Although the son does face more hurdles, these are aggregate data, not specific to the clinic. It may be difficult for this family to be supportive given their concerns about their child. Families usually form support groups in pediatric oncology settings, and support during bereavement is common."
+                },
+                {
+                    question: "What is a common clinical manifestation of Hodgkin disease?",
+                    options: [
+                        "Petechiae",
+                        "Bone and joint pain",
+                        "Painful, enlarged lymph nodes",
+                        "Nontender enlargement of lymph nodes"
+                    ],
+                    correct: 3,
+                    rationale: "Asymptomatic, enlarged cervical or supraclavicular lymphadenopathy is the most common presentation of Hodgkin disease. Petechiae are usually associated with leukemia. Bone and joint pain are not likely in Hodgkin disease. The enlarged nodes are rarely painful."
+                },
+                {
+                    question: "What are the most common clinical manifestations of brain tumors in children?",
+                    options: [
+                        "Headaches and vomiting",
+                        "Blurred vision and ataxia",
+                        "Hydrocephalus and clumsy gait",
+                        "Fever and poor fine motor control"
+                    ],
+                    correct: 0,
+                    rationale: "Headaches, especially on awakening, and vomiting that is not related to feeding are the most common clinical manifestations of brain tumors in children. Diplopia (double vision), not blurred vision, can be a presenting sign of brainstem glioma. Ataxia is a clinical manifestation of brain tumors, but headaches and vomiting are the most common. Hydrocephalus can be a presenting sign in infants when the sutures have not closed. Children at this age are usually not walking steadily. Poor fine motor coordination may be a presenting sign of astrocytoma, but headaches and vomiting are the most common presenting signs of brain tumors."
+                },
+                {
+                    question: "A 5-year-old child is being prepared for surgery to remove a brain tumor. Preparation for surgery should be based on which information?",
+                    options: [
+                        "Removal of the tumor will stop the various signs and symptoms.",
+                        "Usually the postoperative dressing covers the entire scalp.",
+                        "He is not old enough to be concerned about his head being shaved.",
+                        "He is not old enough to understand the significance of the brain."
+                    ],
+                    correct: 1,
+                    rationale: "The child should be told what he will look and feel like after surgery. This includes the anticipated size of the dressing. The nurse can demonstrate on a doll the expected size and shape of the dressing. Some of the symptoms may be alleviated by removal of the tumor, but postsurgical headaches and cerebellar symptoms such as ataxia may be aggravated. Children should be prepared for the loss of their hair, and it should be removed in a sensitive, positive manner if the child is awake. Children at this age have poorly defined body boundaries and little knowledge of internal organs. Intrusive experiences are frightening, especially those that disrupt the integrity of the skin."
+                },
+                {
+                    question: "Essential postoperative nursing management of a child after removal of a brain tumor includes which nursing care?",
+                    options: [
+                        "Turning and positioning every 2 hours",
+                        "Measuring all fluid intake and output",
+                        "Changing the dressing when it becomes soiled",
+                        "Using maximum lighting to ensure accurate observations"
+                    ],
+                    correct: 1,
+                    rationale: "After brain surgery, cerebral edema is a risk. Careful monitoring is essential. All fluids, including intravenous antibiotics, are included in the intake. Turning and positioning depend on the surgical procedure. When large tumors are removed, the child is usually not positioned on the operative side. The dressing is not changed. It is reinforced with gauze after the amount of drainage is marked and estimated. A quiet, dimly lit environment is optimum to decrease stimulation and relieve discomfort such as headaches."
+                },
+                {
+                    question: "An adolescent is scheduled for a leg amputation in 2 days for treatment of osteosarcoma. What approach should the nurse implement?",
+                    options: [
+                        "Answer questions with straightforward honesty.",
+                        "Avoid discussing the seriousness of the condition.",
+                        "Explain that although the amputation is difficult, it will cure the cancer.",
+                        "Help the adolescent accept the amputation as better than a long course of chemotherapy."
+                    ],
+                    correct: 0,
+                    rationale: "Honesty is essential to gain the childs cooperation and trust. The diagnosis of cancer should not be disguised with falsehoods. The adolescent should be prepared for the surgery so there is time for reflection about the diagnosis and subsequent treatment. This allows questions to be answered. To accept the need for radical surgery, the child must be aware of the lack of alternatives for treatment. Amputation is necessary, but it will not guarantee a cure. Chemotherapy is an integral part of the therapy with surgery. The child should be informed of the need for chemotherapy and its side effects before surgery."
+                },
+                {
+                    question: "What is an important priority in dealing with the child suspected of having Wilms tumor?",
+                    options: [
+                        "Intervening to minimize bleeding",
+                        "Monitoring temperature for infection",
+                        "Ensuring the abdomen is protected from palpation",
+                        "Teaching parents how to manage the parenteral nutrition"
+                    ],
+                    correct: 2,
+                    rationale: "Wilms tumor, or nephroblastoma, is the most common malignant renal and intraabdominal tumor of childhood. The abdomen is protected, and palpation is avoided. Careful handling and bathing are essential to prevent trauma to the tumor site. Before chemotherapy, the child is not myelosuppressed. Bleeding is not usually a risk. Infection is a concern after surgery and during chemotherapy, not before surgery. Parenteral therapy is not indicated before surgery."
+                },
+                {
+                    question: "The mother of an infant tells the nurse that sometimes there is a whitish glow in the pupil of his eye. The nurse should suspect which condition?",
+                    options: [
+                        "Brain tumor",
+                        "Retinoblastoma",
+                        "Neuroblastoma",
+                        "Rhabdomyosarcoma"
+                    ],
+                    correct: 1,
+                    rationale: "When the nurse examines the eye, the light will reflect off of the tumor, giving the eye a whitish appearance. This is called a cats eye reflex. Brain tumors are not usually visible. Neuroblastoma usually arises from the adrenal medulla and sympathetic nervous system. The most common presentation sites are in the abdomen, head, neck, or pelvis. Supraorbital ecchymosis may be present with distant metastasis. Rhabdomyosarcoma is a soft tissue tumor that derives from skeletal muscle undifferentiated cells."
+                },
+                {
+                    question: "The nurse is caring for a 6-year-old child with acute lymphoblastic leukemia (ALL). The parent states, 'My child has a low platelet count, and we are being discharged this afternoon. What do I need to do at home?' What statement is most appropriate for the nurse to make?",
+                    options: [
+                        "You should give your child aspirin instead of acetaminophen for fever or pain.",
+                        "Your child should avoid contact sports or activities that could cause bleeding.",
+                        "You should feed your child a bland, soft, moist diet for the next week.",
+                        "Your child should avoid large groups of people for the next week."
+                    ],
+                    correct: 1,
+                    rationale: "A child with a low platelet count needs to avoid activities that could cause bleeding such as playing contact sports, climbing trees, using playground equipment, or bike riding. The child should be given acetaminophen, not aspirin, for fever or pain; the child does not need to be on a soft, bland diet or avoid large groups of people because of the low platelet count."
+                },
+                {
+                    question: "One pediatric oncologic emergency is acute tumor lysis syndrome. Symptoms that this may be occurring include what?",
+                    options: [
+                        "Muscle cramps and tetany",
+                        "Respiratory distress and cyanosis",
+                        "Thrombocytopenia and sepsis",
+                        "Upper extremity edema and neck vein distension"
+                    ],
+                    correct: 0,
+                    rationale: "Risk factors for development of tumor lysis syndrome include a high white blood cell count at diagnosis, large tumor burden, sensitivity to chemotherapy, and high proliferative rate. In addition to the described metabolic abnormalities, children may develop a spectrum of clinical symptoms, including flank pain, lethargy, nausea and vomiting, muscle cramps, pruritus, tetany, and seizures. Respiratory distress and cyanosis occur with hyperleukocytosis. Thrombocytopenia and sepsis occur with disseminated intravascular coagulation. Upper extremity edema and neck vein distention occur with superior vena cava syndrome."
+                },
+                {
+                    question: "A child has an absolute neutrophil count (ANC) of 500/mm³. The nurse should expect to be administering which prescribed treatment?",
+                    options: [
+                        "Platelets",
+                        "Packed red blood cells",
+                        "Zofran (ondansetron)",
+                        "G-CSF (Neupogen) daily"
+                    ],
+                    correct: 3,
+                    rationale: "G-CSF (filgrastim [Neupogen], pegfilgrastim [Neulasta]) directs granulocyte development and can decrease the duration of neutropenia following immunosuppressive therapy. G-CSF is discontinued when the ANC surpasses 10,000/mm³."
+                },
+                {
+                    question: "What specific gravity of the urine is desired so that hemorrhagic cystitis is prevented?",
+                    options: [
+                        "1.035",
+                        "1.030",
+                        "1.025",
+                        "1.005"
+                    ],
+                    correct: 3,
+                    rationale: "Sterile hemorrhagic cystitis is a side effect of chemical irritation to the bladder from chemotherapy or radiotherapy. It can be prevented by a liberal oral or parenteral fluid intake (at least one and a half times the recommended daily fluid requirement). The urine should be dilute so 1.005 is the expected specific gravity."
+                },
+                {
+                    question: "A child, age 10 years, has a neuroblastoma and is in the hospital for additional chemotherapy treatments. What laboratory values are most likely this childs?",
+                    options: [
+                        "White blood cell count, 17,000/mm³; hemoglobin, 15 g/dl",
+                        "White blood cell count, 3,000/mm³; hemoglobin, 11.5 g/dl",
+                        "Platelets, 450,000/mm³; hemoglobin, 12 g/dl",
+                        "White blood cell count, 10,000/mm³; platelets, 175,000/mm³"
+                    ],
+                    correct: 1,
+                    rationale: "Chemotherapy is the mainstay of therapy for extensive local or disseminated neuroblastoma. The drugs of choice are vincristine, doxorubicin, cyclophosphamide, cisplatin, etoposide, ifosfamide, and carboplatin. These cause immunosuppression, so the laboratory values will indicate a low white blood cell count and hemoglobin."
+                },
+                {
+                    question: "Calculate the absolute neutrophil count (ANC) for the following: WBC count of 5000 mm³; neutrophils (segs) of 10%; and nonsegmented neutrophils (bands) of 12%.",
+                    options: [
+                        "110/mm³",
+                        "500/mm³",
+                        "1100/mm³",
+                        "5000/mm³"
+                    ],
+                    correct: 2,
+                    rationale: "Determine the total percentage of neutrophils (polys, or segs, and bands). Multiply white blood cell (WBC) count by percentage of neutrophils. WBC = 1000/mm³, neutrophils = 7%, and nonsegmented neutrophils (bands) = 7%. Step 1: 10% + 12% = 22%. Step 2: 0.22 × 5000 = 1100/mm³ ANC"
+                },
+                {
+                    question: "A child has been diagnosed with a Wilms tumor. What should preoperative nursing care include?",
+                    options: [
+                        "Careful bathing and handling",
+                        "Monitoring of behavioral status",
+                        "Maintenance of strict isolation",
+                        "Administration of packed red blood cells"
+                    ],
+                    correct: 0,
+                    rationale: "Careful bathing and handling are important in preventing trauma to the Wilms tumor site."
+                },
+                {
+                    question: "What is appropriate mouth care for a toddler with mucosal ulceration related to chemotherapy?",
+                    options: [
+                        "Mouthwashes with plain saline",
+                        "Lemon glycerin swabs for cleansing",
+                        "Mouthwashes with hydrogen peroxide",
+                        "Swish and swallow with viscous lidocaine"
+                    ],
+                    correct: 0,
+                    rationale: "Administering mouth care is particularly difficult in infants and toddlers. A satisfactory method of cleaning the gums is to wrap a piece of gauze around a finger; soak it in saline or plain water; and swab the gums, palate, and inner cheek surfaces with the finger. Mouth rinses are best accomplished with plain water or saline because the child cannot gargle or spit out excess fluid. Avoid agents such as lemon glycerin swabs and hydrogen peroxide because of the drying effects on the mucosa. Lidocaine should be avoided in young children."
+                },
+                {
+                    question: "The nurse should expect to care for which age of child if the admitting diagnosis is retinoblastoma?",
+                    options: [
+                        "Infant or toddler",
+                        "Preschool- or school-age child",
+                        "School-age or adolescent child",
+                        "Adolescent"
+                    ],
+                    correct: 0,
+                    rationale: "The average age of the child at the time of diagnosis is 2 years, and bilateral and hereditary disease is diagnosed earlier than unilateral and nonhereditary disease."
+                },
+                {
+                    question: "Postoperative positioning for a child who has had a medulloblastoma brain tumor (infratentorial) removed should be which?",
+                    options: [
+                        "Trendelenburg",
+                        "Head of bed elevated above heart level",
+                        "Flat on operative side with pillows behind the head",
+                        "Flat, on either side with pillows behind the back"
+                    ],
+                    correct: 3,
+                    rationale: "The child with an infratentorial procedure is usually positioned flat and on either side. Pillows should be placed against the childs back, not head, to maintain the desired position. The Trendelenburg position is contraindicated in both infratentorial and supratentorial surgeries because it increases intracranial pressure and the risk of hemorrhage."
+                },
+                {
+                    question: "A child is receiving vincristine (Oncovin). The nurse should monitor for which side effect of this medication?",
+                    options: [
+                        "Diarrhea",
+                        "Photosensitivity",
+                        "Constipation",
+                        "Ototoxicity"
+                    ],
+                    correct: 2,
+                    rationale: "Vincristine, and to a lesser extent vinblastine, can cause various neurotoxic effects. One of the more common neurotoxic effects is severe constipation caused from decreased bowel innervation."
+                },
+                {
+                    question: "What chemotherapeutic agent can cause an anaphylactic reaction?",
+                    options: [
+                        "Prednisone (Deltasone)",
+                        "Vincristine (Oncovin)",
+                        "L-Asparaginase (Elspar)",
+                        "Methotrexate (Trexall)"
+                    ],
+                    correct: 2,
+                    rationale: "A potentially fatal complication is anaphylaxis, especially from L-asparaginase, bleomycin, cisplatin, and etoposide (VP-16)."
+                },
+                {
+                    question: "A child with cancer being treated with chemotherapy is receiving a platelet transfusion. The nurse understands that the transfused platelets should survive the body for how many days?",
+                    options: [
+                        "1 to 3 days",
+                        "4 to 6 days",
+                        "7 to 9 days",
+                        "10 to 12 days"
+                    ],
+                    correct: 0,
+                    rationale: "Transfused platelets generally survive in the body for 1 to 3 days. The peak effect is reached in about 1 hour and decreased by half in 24 hours."
+                },
+                {
+                    question: "Daily toothbrushing and flossing can be encouraged for the child on chemotherapy when the platelet count is above which?",
+                    options: [
+                        "10,000/mm³",
+                        "20,000/mm³",
+                        "30,000/mm³",
+                        "40,000/mm³"
+                    ],
+                    correct: 3,
+                    rationale: "Daily toothbrushing and flossing are encouraged in children with platelet counts above 40,000/mm³."
+                },
+                {
+                    question: "A parent of a hospitalized child on chemotherapy asks the nurse if a sibling of the hospitalized child should receive the varicella vaccination. The nurse should give which response?",
+                    options: [
+                        "The sibling can get a varicella vaccination.",
+                        "The sibling should not get a varicella vaccination.",
+                        "The sibling should wait until the child is finished with chemotherapy.",
+                        "The sibling should get varicella-zoster immune globulin if exposed to chickenpox."
+                    ],
+                    correct: 0,
+                    rationale: "Siblings and other family members can receive the live measles, mumps, and rubella vaccine and the varicella vaccine without risk to the child who is immunosuppressed."
+                },
+                {
+                    question: "The nurse is collecting a 24-hour urine sample on a child with suspected diagnosis of neuroblastoma. What finding in the urine is expected with neuroblastomas?",
+                    options: [
+                        "Ketones",
+                        "Catecholamines",
+                        "Red blood cells",
+                        "Excessive white blood cells"
+                    ],
+                    correct: 1,
+                    rationale: "Neuroblastomas, particularly those arising on the adrenal glands or from a sympathetic chain, excrete the catecholamines epinephrine and norepinephrine. Urinary excretion of catecholamines is detected in approximately 95% of children with adrenal or sympathetic tumors."
+                },
+                {
+                    question: "A child with osteosarcoma is experiencing phantom limb pain after an amputation. What prescribed medication is effective for short-term phantom pain relief?",
+                    options: [
+                        "Phenytoin (Dilantin)",
+                        "Gabapentin (Neurontin)",
+                        "Valproic Acid (Depakote)",
+                        "Phenobarbital (Phenobarbital)"
+                    ],
+                    correct: 1,
+                    rationale: "A recent Cochrane review reported that various medications have been used for phantom limb pain but complete pain relief has been unsuccessful. Morphine, gabapentin, and ketamine are effective for short-term pain relief."
+                }
+            ],
+            
+            'multiple-response': [
+                {
+                    question: "The nurse is precepting a new graduate nurse at an ambulatory pediatric hematology and oncology clinic. What cardinal signs of cancer in children should the nurse make the new nurse aware of? (Select all that apply.)",
+                    options: [
+                        "Sudden tendency to bruise easily",
+                        "Transitory, generalized pain",
+                        "Frequent headaches",
+                        "Excessive, rapid weight gain",
+                        "Gradual, steady fever",
+                        "Unexplained loss of energy"
+                    ],
+                    correct: [0, 2, 5],
+                    rationale: "The cardinal signs of cancer in children include a sudden tendency to bruise easily; frequent headaches, often with vomiting; and an unexplained loss of energy. Other cardinal signs include persistent, localized pain; excessive, rapid weight loss; and a prolonged, unexplained fever."
+                },
+                {
+                    question: "A child on chemotherapy has developed rectal ulcers. What interventions should the nurse teach to the child and parents to relieve the discomfort of rectal ulcers? (Select all that apply.)",
+                    options: [
+                        "Warm sitz baths",
+                        "Use of stool softeners",
+                        "Record bowel movements",
+                        "Use of an opioid for discomfort",
+                        "Occlusive ointment applied to the area"
+                    ],
+                    correct: [0, 1, 2, 4],
+                    rationale: "If rectal ulcers develop, meticulous toilet hygiene, warm sitz baths after each bowel movement, and an occlusive ointment applied to the ulcerated area promote healing; the use of stool softeners is necessary to prevent further discomfort. Parents should record bowel movements because the child may voluntarily avoid defecation to prevent discomfort. Opioids would cause increased constipation."
+                },
+                {
+                    question: "What are favorable prognostic criteria for acute lymphoblastic leukemia? (Select all that apply.)",
+                    options: [
+                        "Male gender",
+                        "CALLA positive",
+                        "Early preB cell",
+                        "2 to 10 years of age",
+                        "Leukocyte count ≥50,000/mm³"
+                    ],
+                    correct: [1, 2, 3],
+                    rationale: "Favorable prognostic criteria for acute lymphoblastic leukemia include CALLA positive, early preB cell, and age 2 to 10 years. Leukocyte count less, not greater, than 50,000/mm³ and female, not male, gender are favorable prognostic criteria."
+                },
+                {
+                    question: "The nurse should teach the family that which residual disabilities can occur for a child being treated for a brain tumor? (Select all that apply.)",
+                    options: [
+                        "Ataxia",
+                        "Anorexia",
+                        "Dysphagia",
+                        "Sensory deficits",
+                        "Cranial nerve palsies"
+                    ],
+                    correct: [0, 2, 3, 4],
+                    rationale: "Even with children who are long-term survivors after treatment for a brain tumor, residual disabilities, such as short stature, cranial nerve palsies, sensory defects, motor abnormalities (especially ataxia), intellectual deficits, dysphagia, dysgraphia, and behavioral problems, may occur. Anorexia is not a residual disability."
+                },
+                {
+                    question: "The nurse is caring for a child with retinoblastoma that was treated with an enucleation. What interventions should the nurse plan for care of an eye socket after enucleation? (Select all that apply.)",
+                    options: [
+                        "Clean the prosthesis.",
+                        "Change the eye pad daily.",
+                        "Keep the opposite eye covered initially.",
+                        "Irrigate the socket daily with a prescribed solution.",
+                        "Apply a prescribed antibiotic ointment after irrigation."
+                    ],
+                    correct: [1, 3, 4],
+                    rationale: "Care of the socket is minimal and easily accomplished. The wound itself is clean and has little or no drainage. If an antibiotic ointment is prescribed, it is applied in a thin line on the surface of the tissues of the socket. To cleanse the site, an irrigating solution may be ordered and is instilled daily or more frequently if necessary before application of the antibiotic ointment. The dressing consists of an eye pad changed daily. The prosthesis is not placed until the socket has healed. The opposite eye is not covered."
+                },
+                {
+                    question: "What guidelines should the nurse follow when handling chemotherapeutic agents? (Select all that apply.)",
+                    options: [
+                        "Use clean technique.",
+                        "Prepare medications in a safety cabinet.",
+                        "Wear gloves designed for handling chemotherapy.",
+                        "Wear face and eye protection when splashing is possible.",
+                        "Discard gloves and protective clothing in a special container."
+                    ],
+                    correct: [1, 2, 3, 4],
+                    rationale: "Safe handling of chemotherapeutic agents includes preparing medications in a safety cabinet, wearing gloves designed for handling chemotherapy, wearing face and eye protection when splashing is possible, and discarding gloves and protective clothing in a special container. Aseptic, not clean, technique should be used."
+                },
+                {
+                    question: "What strategies should the nurse implement to increase nutritional intake for the child receiving chemotherapy? (Select all that apply.)",
+                    options: [
+                        "Allow the child any food tolerated.",
+                        "Fortify foods with nutritious supplements.",
+                        "Allow the child to be involved in food selection.",
+                        "Encourage the parents to place pressure on the importance of eating.",
+                        "Encourage the child to eat favorite foods during infusion of chemotherapy medications."
+                    ],
+                    correct: [0, 1, 2],
+                    rationale: "To increase nutritional intake for the child receiving chemotherapy, the nurse should allow the child any food tolerated, fortify foods with nutritious supplements, and allow the child to be involved in food selection. The parents should be encouraged to reduce pressure placed on eating. Some children develop aversions to certain foods if they are eaten during chemotherapy. It is best to refrain from offering the childs favorite foods while the child is receiving chemotherapy."
+                }
+            ],
+            
+            'all': []
+        };
+
+        // Combine all questions for the 'all' section
+        sections['all'] = [
+            ...sections['multiple-choice'].map(q => ({...q, section: 'multiple-choice'})),
+            ...sections['multiple-response'].map(q => ({...q, section: 'multiple-response'}))
+        ];
+
+        let currentSection = 'multiple-choice';
+        let currentQuestion = 0;
+        let selectedOption = null;
+        let selectedOptions = [];
+        let isSubmitted = false;
+        let answers = {
+            'multiple-choice': Array(sections['multiple-choice'].length).fill(null),
+            'multiple-response': Array(sections['multiple-response'].length).fill({selected: [], submitted: false}),
+            'all': Array(sections['all'].length).fill(null)
+        };
+
+        function setSection(section) {
+            currentSection = section;
+            currentQuestion = 0;
+            selectedOption = null;
+            selectedOptions = [];
+            isSubmitted = false;
+            
+            document.querySelectorAll('.section-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadQuestion();
+        }
+
+        function isMultipleResponseQuestion() {
+            if (currentSection === 'all') {
+                const questionData = getCurrentQuestionData();
+                return questionData?.section === 'multiple-response' || Array.isArray(questionData?.correct);
+            }
+            return currentSection === 'multiple-response';
+        }
+
+        function getCurrentQuestionData() {
+            if (currentSection === 'all') {
+                return sections['all'][currentQuestion] || null;
+            } else {
+                return sections[currentSection][currentQuestion];
+            }
+        }
+
+        function loadQuestion() {
+            const questionData = getCurrentQuestionData();
+            
+            if (!questionData) return;
+            
+            const isMultipleResponse = isMultipleResponseQuestion();
+            
+            // Update UI elements visibility
+            document.getElementById('multipleSelectIndicator').style.display = isMultipleResponse ? 'block' : 'none';
+            document.getElementById('multipleSelectInstructions').style.display = isMultipleResponse ? 'block' : 'none';
+            document.getElementById('cancelBtn').classList.remove('show');
+            document.getElementById('submitBtn').style.display = isMultipleResponse ? 'flex' : 'none';
+            document.getElementById('questionNumber').textContent = currentQuestion + 1;
+            
+            let totalQuestions = getTotalQuestions();
+            
+            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('counter').textContent = `${currentQuestion + 1}/${totalQuestions}`;
+            
+            document.getElementById('question').textContent = questionData.question;
+            loadOptions(questionData);
+            
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('rationale').classList.remove('show');
+            
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            const isLastQuestion = currentQuestion >= totalQuestions - 1;
+            document.getElementById('nextBtn').textContent = isLastQuestion ? 'Finish ➡️' : 'Next ➡️';
+            document.getElementById('nextBtn').disabled = true;
+            
+            // Load saved answer state
+            const storedAnswer = answers[currentSection][currentQuestion];
+            if (storedAnswer !== null && storedAnswer !== undefined) {
+                if (isMultipleResponse) {
+                    selectedOptions = storedAnswer.selected || [];
+                    isSubmitted = storedAnswer.submitted || false;
+                    
+                    if (isSubmitted) {
+                        showFeedbackForMultipleResponse(questionData);
+                        document.getElementById('nextBtn').disabled = false;
+                        document.getElementById('submitBtn').disabled = true;
+                    } else {
+                        highlightSelectedOptionsForMultipleResponse();
+                        document.getElementById('submitBtn').disabled = selectedOptions.length === 0;
+                        document.getElementById('nextBtn').disabled = false;
+                        if (selectedOptions.length > 0) {
+                            document.getElementById('cancelBtn').classList.add('show');
+                        }
+                    }
+                } else {
+                    selectedOption = storedAnswer;
+                    highlightSelectedOption(storedAnswer, questionData);
+                    showFeedback(storedAnswer, questionData);
+                    document.getElementById('nextBtn').disabled = false;
+                    document.getElementById('cancelBtn').classList.add('show');
+                }
+            } else {
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                if (isMultipleResponse) {
+                    document.getElementById('submitBtn').disabled = true;
+                }
+            }
+        }
+
+        function loadOptions(questionData) {
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            if (questionData.options && questionData.options.length > 0) {
+                questionData.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.innerHTML = `
+                        <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                        <div class="option-text">${option}</div>
+                    `;
+                    optionElement.onclick = () => selectOption(index, questionData);
+                    optionsContainer.appendChild(optionElement);
+                });
+            } else {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `
+                    <div class="option-letter">A</div>
+                    <div class="option-text">No options available for this question</div>
+                `;
+                optionsContainer.appendChild(optionElement);
+            }
+        }
+
+        function selectOption(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            if (isMultipleResponseQuestion()) {
+                handleMultipleResponseSelect(index, questionData);
+            } else {
+                handleSingleSelect(index, questionData);
+            }
+        }
+
+        function handleSingleSelect(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            answers[currentSection][currentQuestion] = index;
+            selectedOption = index;
+            
+            highlightSelectedOption(index, questionData);
+            showFeedback(index, questionData);
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('cancelBtn').classList.add('show');
+        }
+
+        function handleMultipleResponseSelect(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            if (isSubmitted) return;
+            
+            const optionIndex = selectedOptions.indexOf(index);
+            if (optionIndex === -1) {
+                selectedOptions.push(index);
+            } else {
+                selectedOptions.splice(optionIndex, 1);
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (selectedOptions.includes(i)) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            if (!answers[currentSection][currentQuestion]) {
+                answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+            }
+            answers[currentSection][currentQuestion].selected = selectedOptions;
+            answers[currentSection][currentQuestion].submitted = false;
+            
+            document.getElementById('submitBtn').disabled = selectedOptions.length === 0;
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('cancelBtn').classList.toggle('show', selectedOptions.length > 0);
+        }
+
+        function highlightSelectedOption(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                
+                if (i === index) {
+                    if (i === questionData.correct) {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        if (questionData.correct !== undefined) {
+                            options[questionData.correct].classList.add('correct');
+                        }
+                    }
+                }
+            });
+        }
+
+        function highlightSelectedOptionsForMultipleResponse() {
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (selectedOptions.includes(i)) {
+                    option.classList.add('selected');
+                }
+            });
+        }
+
+        function submitAnswer() {
+            if (selectedOptions.length === 0) return;
+            
+            isSubmitted = true;
+            
+            if (!answers[currentSection][currentQuestion]) {
+                answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+            }
+            answers[currentSection][currentQuestion].submitted = true;
+            
+            const questionData = getCurrentQuestionData();
+            showFeedbackForMultipleResponse(questionData);
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('cancelBtn').classList.remove('show');
+        }
+
+        function showFeedback(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackText = document.getElementById('feedbackText');
+            const rationale = document.getElementById('rationale');
+            const rationaleText = document.getElementById('rationaleText');
+            
+            if (index === questionData.correct) {
+                feedback.className = 'feedback correct';
+                feedbackIcon.textContent = '✅';
+                feedbackText.textContent = 'Correct! Well done.';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '❌';
+                const correctLetter = String.fromCharCode(65 + questionData.correct);
+                feedbackText.textContent = `Incorrect. Correct: ${correctLetter}`;
+            }
+            
+            feedback.style.display = 'flex';
+            rationaleText.textContent = questionData.rationale;
+            rationale.classList.add('show');
+        }
+
+        function showFeedbackForMultipleResponse(questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackText = document.getElementById('feedbackText');
+            const rationale = document.getElementById('rationale');
+            const rationaleText = document.getElementById('rationaleText');
+            
+            const allCorrectSelected = questionData.correct.every(c => selectedOptions.includes(c));
+            const noIncorrectSelected = selectedOptions.every(s => questionData.correct.includes(s));
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (questionData.correct.includes(i)) {
+                    option.classList.add('correct');
+                }
+                if (selectedOptions.includes(i) && !questionData.correct.includes(i)) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (allCorrectSelected && noIncorrectSelected) {
+                feedback.className = 'feedback correct';
+                feedbackIcon.textContent = '✅';
+                feedbackText.textContent = 'Perfect! All correct selected.';
+            } else if (allCorrectSelected && !noIncorrectSelected) {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '⚠️';
+                feedbackText.textContent = 'Almost! All correct + some incorrect.';
+            } else if (!allCorrectSelected && noIncorrectSelected) {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '⚠️';
+                feedbackText.textContent = 'Partially correct! Some correct, missed others.';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '❌';
+                feedbackText.textContent = 'Incorrect. Missed correct & selected incorrect.';
+            }
+            
+            feedback.style.display = 'flex';
+            rationaleText.textContent = questionData.rationale;
+            rationale.classList.add('show');
+        }
+
+        function cancelSelection() {
+            const questionData = getCurrentQuestionData();
+            
+            if (isMultipleResponseQuestion()) {
+                selectedOptions = [];
+                isSubmitted = false;
+                
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                if (answers[currentSection][currentQuestion]) {
+                    answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+                }
+                
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('rationale').classList.remove('show');
+                document.getElementById('cancelBtn').classList.remove('show');
+            } else {
+                answers[currentSection][currentQuestion] = null;
+                selectedOption = null;
+                
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('rationale').classList.remove('show');
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('cancelBtn').classList.remove('show');
+            }
+        }
+
+        function nextCard() {
+            const totalQuestions = getTotalQuestions();
+            
+            if (currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                loadQuestion();
+            } else {
+                let correctCount = 0;
+                let totalAnswered = 0;
+                
+                Object.keys(answers).forEach(section => {
+                    answers[section].forEach((answer, index) => {
+                        if (answer !== null && answer !== undefined) {
+                            totalAnswered++;
+                            const questionData = getQuestionData(section, index);
+                            
+                            if (Array.isArray(questionData?.correct)) {
+                                if (answer.submitted && Array.isArray(answer.selected)) {
+                                    const allCorrect = questionData.correct.every(c => answer.selected.includes(c));
+                                    const noIncorrect = answer.selected.every(s => questionData.correct.includes(s));
+                                    if (allCorrect && noIncorrect) correctCount++;
+                                }
+                            } else {
+                                if (answer === questionData?.correct) correctCount++;
+                            }
+                        }
+                    });
+                });
+                
+                alert(`Quiz completed!\n\nAnswered: ${totalAnswered}\nCorrect: ${correctCount}\n\nClick OK to restart.`);
+                
+                currentSection = 'multiple-choice';
+                currentQuestion = 0;
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                answers = {
+                    'multiple-choice': Array(sections['multiple-choice'].length).fill(null),
+                    'multiple-response': Array(sections['multiple-response'].length).fill({selected: [], submitted: false}),
+                    'all': Array(sections['all'].length).fill(null)
+                };
+                
+                setSection('multiple-choice');
+            }
+        }
+
+        function previousCard() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                const storedAnswer = answers[currentSection][currentQuestion];
+                
+                if (isMultipleResponseQuestion()) {
+                    selectedOptions = storedAnswer?.selected || [];
+                    isSubmitted = storedAnswer?.submitted || false;
+                } else {
+                    selectedOption = storedAnswer;
+                }
+                
+                loadQuestion();
+            }
+        }
+
+        function getTotalQuestions() {
+            if (currentSection === 'all') {
+                return sections['all'].length;
+            } else {
+                return sections[currentSection].length;
+            }
+        }
+
+        function getQuestionData(section, index) {
+            if (section === 'all') {
+                return sections['all'][index];
+            } else {
+                return sections[section][index];
+            }
+        }
+
+        // Initialize
+        setSection('multiple-choice');
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key >= '1' && event.key <= '5') {
+                const index = parseInt(event.key) - 1;
+                const questionData = getCurrentQuestionData();
+                selectOption(index, questionData);
+            } else if (event.key >= 'a' && event.key <= 'e') {
+                const index = event.key.charCodeAt(0) - 97;
+                const questionData = getCurrentQuestionData();
+                selectOption(index, questionData);
+            } else if (event.key === 'Enter' && isMultipleResponseQuestion()) {
+                if (selectedOptions.length > 0 && !isSubmitted) {
+                    submitAnswer();
+                }
+            } else if (event.key === 'ArrowLeft') {
+                if (!document.getElementById('prevBtn').disabled) {
+                    previousCard();
+                }
+            } else if (event.key === 'ArrowRight') {
+                if (!document.getElementById('nextBtn').disabled) {
+                    nextCard();
+                }
+            } else if (event.key === ' ' || event.key === 'Spacebar') {
+                if (!document.getElementById('nextBtn').disabled && !isMultipleResponseQuestion()) {
+                    nextCard();
+                }
+            } else if (event.key === 'Escape') {
+                cancelSelection();
+            }
+        });
+    </script>
+</body>
+</html>
